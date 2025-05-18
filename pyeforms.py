@@ -1,4 +1,4 @@
-# (c) 2024 Open Risk (www.openriskmanagement.com), all rights reserved
+# (c) 2024 - 2025 Open Risk (www.openriskmanagement.com), all rights reserved
 #
 # pyeForms is licensed under the Apache 2.0 license a copy of which is included
 # in the source distribution of pyeForms. This is notwithstanding any licenses of
@@ -10,7 +10,7 @@
 # either express or implied. See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+import os
 import sys
 import csv
 
@@ -22,16 +22,20 @@ if __name__ == "__main__":
     name = sys.argv[1]
 
     # Create a new Excel file and add a worksheet.
-    workbook = xlsxwriter.Workbook('demo.xlsx')
-
+    filename = os.path.basename(name)
+    xlsx_name = filename.split('.')[0] + '.xlsx'
+    print(xlsx_name)
+    workbook = xlsxwriter.Workbook('examples/' + xlsx_name)
     worksheet = workbook.add_worksheet('About')
     worksheet.write(0, 0, 'pyeForms demo')
 
     #
-    # Create Form Section Data Sheets
+    # Create XLSX Data Sheets for all unique form sections
+    # NB: some may not be populated in an given notice
     #
     field_file2 = open('reference/fields.csv')
     csvreader3 = csv.reader(field_file2, delimiter=',')
+    # Find the unique sections
     sections = set([row[10].capitalize() for row in csvreader3])
     ws_dict = {}
     for section in sections:
@@ -39,13 +43,15 @@ if __name__ == "__main__":
         ws_dict[section] = 0  # row index per sheet
     field_file2.close()
 
-    # Open and parse Notice file
+    #
+    # Open and parse an XML Notice file
+    #
     notice_file = open(name, 'rb')
     notice_xml = notice_file.read()
     xml_root = etree.XML(notice_xml)
     nsa = xml_root.nsmap
     namespaces = {k: v for k, v in nsa.items() if k is not None}
-    # print(namespaces)
+    # Set the notice type
     notice_type = xml_root.tag.split('}')[1]
 
     #
