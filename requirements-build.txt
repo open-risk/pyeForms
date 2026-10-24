@@ -1,1 +1,5 @@
 hatchling
+twine
+uv_build
+setuptools
+wheel
