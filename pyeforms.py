@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     #
     # Create XLSX Data Sheets for all unique form sections
-    # NB: some may not be populated in an given notice
+    # NB: some may not be populated in a given notice
     #
     field_file2 = open('reference/fields.csv')
     csvreader3 = csv.reader(field_file2, delimiter=',')
