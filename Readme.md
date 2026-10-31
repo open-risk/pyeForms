@@ -1,16 +1,13 @@
 # pyeForms
 
-A simple command line Python tool for converting eForms xml documents into xlsx documents
+A simple command line Python tool for converting eForms xml documents into xlsx documents.
+
+**NB: pyeForms is still under development!**
 
 ## Usage
 
-pyeforms input_filename.xml
-
-
-## Installation
-
-pyeForms is contained in a single file
-
+* pip install pyeforms 
+* python3 pyeforms.py input_filename.xml
 
 ## Dependencies
 
